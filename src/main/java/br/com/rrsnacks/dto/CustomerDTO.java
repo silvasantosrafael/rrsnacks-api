@@ -11,6 +11,6 @@ public class CustomerDTO {
     private Long customerId;
     private String name;
     private String email;
-    private List<AddressDTO> address;
+    private List<AddressDTO> addresses;
 }
 

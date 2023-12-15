@@ -20,13 +20,13 @@ public class EntityDtoConversionService {
         customer.setEmail(customerDTO.getEmail());
 
         List<Address> addresses = Optional
-                .ofNullable(customerDTO.getAddress())
+                .ofNullable(customerDTO.getAddresses())
                 .orElse(List.of())
                 .stream()
                 .map(addressDTO -> this.convertToEntity(addressDTO, customer))
                 .toList();
 
-        customer.setAddress(addresses);
+        customer.setAddresses(addresses);
 
         return customer;
     }
