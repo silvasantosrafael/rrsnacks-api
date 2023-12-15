@@ -1,4 +1,4 @@
-package br.com.rrsnacks.service;
+package br.com.rrsnacks.util;
 
 import br.com.rrsnacks.dto.AddressDTO;
 import br.com.rrsnacks.dto.CustomerDTO;

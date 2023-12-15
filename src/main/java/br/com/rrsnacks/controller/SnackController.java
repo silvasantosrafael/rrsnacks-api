@@ -1,13 +1,14 @@
 package br.com.rrsnacks.controller;
 
 import br.com.rrsnacks.dto.SnackDTO;
-import br.com.rrsnacks.service.SnackService;
+import br.com.rrsnacks.service.implement.SnackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/snacks")
@@ -22,8 +23,8 @@ public class SnackController {
 
     @GetMapping("/{id}")
     public ResponseEntity<SnackDTO> getSnack(@PathVariable Long id) {
-        SnackDTO snackDTO = snackService.getById(id);
-        return snackDTO != null ? ResponseEntity.ok().body(snackDTO) : ResponseEntity.notFound().build();
+        Optional<SnackDTO> snackDTO = snackService.getById(id);
+        return snackDTO.map(dto -> ResponseEntity.ok().body(dto)).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping("create")

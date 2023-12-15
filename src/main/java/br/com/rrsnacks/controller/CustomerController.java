@@ -1,13 +1,14 @@
 package br.com.rrsnacks.controller;
 
 import br.com.rrsnacks.dto.CustomerDTO;
-import br.com.rrsnacks.service.CustomerService;
+import br.com.rrsnacks.service.implement.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/customers")
@@ -22,8 +23,8 @@ public class CustomerController {
 
     @GetMapping("/{id}")
     public ResponseEntity<CustomerDTO> getCustomer(@PathVariable Long id) {
-        CustomerDTO customerDTO = customerService.getById(id);
-        return customerDTO != null ? ResponseEntity.ok().body(customerDTO) : ResponseEntity.notFound().build();
+        Optional<CustomerDTO> customerDTO = customerService.getById(id);
+        return customerDTO.map(dto -> ResponseEntity.ok().body(dto)).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping("create")
