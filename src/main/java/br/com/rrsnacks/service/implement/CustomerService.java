@@ -3,13 +3,12 @@ package br.com.rrsnacks.service.implement;
 import br.com.rrsnacks.dto.CustomerDTO;
 import br.com.rrsnacks.model.Customer;
 import br.com.rrsnacks.repository.CustomerRepository;
-import br.com.rrsnacks.util.EntityDtoConversionService;
 import br.com.rrsnacks.service.ServiceStrategy;
+import br.com.rrsnacks.util.EntityDtoConversionService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -26,9 +25,8 @@ public class CustomerService implements ServiceStrategy<CustomerDTO> {
 
     @Override
     public List<CustomerDTO> getAll() {
-
         return StreamSupport.stream(customerRepository.findAll().spliterator(), false)
-                .map(customer ->  modelMapper.map(customer, CustomerDTO.class))
+                .map(customer -> modelMapper.map(customer, CustomerDTO.class))
                 .collect(Collectors.toList());
     }
 

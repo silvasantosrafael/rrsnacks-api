@@ -7,8 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -31,6 +31,6 @@ public class Order {
             joinColumns = {@JoinColumn(name = "order_id")},
             inverseJoinColumns = {@JoinColumn(name = "snack_id")}
     )
-    private Set<Snack> snacks = new HashSet<>();
+    private List<Snack> snacks = new ArrayList<>();
 
 }
