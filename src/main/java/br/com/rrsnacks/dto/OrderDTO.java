@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -14,4 +15,5 @@ public class OrderDTO {
     private CustomerDTO customer;
     private PaymentType paymentType;
     private List<SnackDTO> snacks = new ArrayList<>();
+    private Date orderDate;
 }

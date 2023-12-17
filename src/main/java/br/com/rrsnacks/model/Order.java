@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -25,12 +25,13 @@ public class Order {
     private Customer customer;
     @Enumerated(EnumType.STRING)
     private PaymentType paymentType;
-    @ManyToMany(cascade = {CascadeType.ALL})
+    @ManyToMany
     @JoinTable(
             name = "order_snack",
             joinColumns = {@JoinColumn(name = "order_id")},
             inverseJoinColumns = {@JoinColumn(name = "snack_id")}
     )
-    private List<Snack> snacks = new ArrayList<>();
-
+    private List<Snack> snacks;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date orderDate;
 }

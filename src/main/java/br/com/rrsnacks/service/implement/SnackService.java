@@ -17,24 +17,24 @@ public class SnackService implements ServiceStrategy<SnackDTO> {
     @Autowired
     SnackRepository snackRepository;
     @Autowired
-    ModelMapper modelMapper;
+    ModelMapper mapper;
+
 
     @Override
     public List<SnackDTO> getAll() {
-        Iterable<Snack> snacks = snackRepository.findAll();
-        return Arrays.asList(modelMapper.map(snacks, SnackDTO[].class));
+        return Arrays.stream(mapper.map(snackRepository.findAll(), SnackDTO[].class)).toList();
     }
 
     @Override
     public Optional<SnackDTO> getById(Long id) {
-        return snackRepository.findById(id)
-                .map(snack -> modelMapper.map(snack, SnackDTO.class));
+        return snackRepository.findById(id).map(snack -> mapper.map(snack, SnackDTO.class));
     }
 
     @Override
     public SnackDTO create(SnackDTO snackDTO) {
-        Snack snackEntity = modelMapper.map(snackDTO, Snack.class);
+        Snack snackEntity = mapper.map(snackDTO, Snack.class);
         Snack snack = snackRepository.save(snackEntity);
-        return modelMapper.map(snack, SnackDTO.class);
+
+        return mapper.map(snack, SnackDTO.class);
     }
 }

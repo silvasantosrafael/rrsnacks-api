@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Getter
 @Setter
@@ -22,4 +23,6 @@ public class Snack {
     private String name;
     private String description;
     private BigDecimal price;
+    @ManyToMany
+    private List<Order> orders;
 }
