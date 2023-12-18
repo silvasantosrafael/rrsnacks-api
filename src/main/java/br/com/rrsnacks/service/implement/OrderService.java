@@ -31,10 +31,11 @@ public class OrderService implements ServiceStrategy<OrderDTO> {
     }
 
     @Override
-    public OrderDTO create(OrderDTO orderDTO) {
+    public OrderDTO saveOrMerge(OrderDTO orderDTO) {
         Order orderEntity = mapper.map(orderDTO, Order.class);
         Order order = orderRepository.save(orderEntity);
 
         return mapper.map(order, OrderDTO.class);
     }
+
 }

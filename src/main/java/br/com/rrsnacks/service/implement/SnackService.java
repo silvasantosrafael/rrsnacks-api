@@ -31,7 +31,7 @@ public class SnackService implements ServiceStrategy<SnackDTO> {
     }
 
     @Override
-    public SnackDTO create(SnackDTO snackDTO) {
+    public SnackDTO saveOrMerge(SnackDTO snackDTO) {
         Snack snackEntity = mapper.map(snackDTO, Snack.class);
         Snack snack = snackRepository.save(snackEntity);
 

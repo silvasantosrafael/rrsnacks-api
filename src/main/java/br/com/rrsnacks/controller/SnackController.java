@@ -29,6 +29,6 @@ public class SnackController {
 
     @PostMapping("create")
     public ResponseEntity<SnackDTO> createSnack(@RequestBody SnackDTO snackDTO) {
-        return ResponseEntity.created(URI.create("")).body(snackService.create(snackDTO));
+        return ResponseEntity.created(URI.create("")).body(snackService.saveOrMerge(snackDTO));
     }
 }
