@@ -30,8 +30,12 @@ public class CustomerService implements ServiceStrategy<CustomerDTO> {
         return customerRepository.findById(id).map(customer -> mapper.map(customer, CustomerDTO.class));
     }
 
+    public Optional<CustomerDTO> getByLogin(String login) {
+        return customerRepository.findByEmail(login).map(customer -> mapper.map(customer, CustomerDTO.class));
+    }
+
     @Override
-    public CustomerDTO create(CustomerDTO customerDTO) {
+    public CustomerDTO saveOrMerge(CustomerDTO customerDTO) {
         Customer customerEntity = mapper.map(customerDTO, Customer.class);
         customerEntity.getAddresses().forEach(address -> address.setCustomer(customerEntity));
         Customer customer = customerRepository.save(customerEntity);

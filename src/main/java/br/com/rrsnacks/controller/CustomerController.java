@@ -3,10 +3,10 @@ package br.com.rrsnacks.controller;
 import br.com.rrsnacks.dto.CustomerDTO;
 import br.com.rrsnacks.service.implement.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,8 +27,18 @@ public class CustomerController {
         return customerDTO.map(dto -> ResponseEntity.ok().body(dto)).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping("create")
+    @GetMapping("/customer")
+    public ResponseEntity<CustomerDTO> getCustomerByLogin(@RequestParam String login) {
+        Optional<CustomerDTO> customerDTO = customerService.getByLogin(login);
+        return customerDTO.map(dto -> ResponseEntity.ok().body(dto)).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @PostMapping("/save")
     public ResponseEntity<CustomerDTO> createCustomer(@RequestBody CustomerDTO customerDTO) {
-        return ResponseEntity.created(URI.create("")).body(customerService.create(customerDTO));
+        if (customerDTO.getCustomerId() == null) {
+            return ResponseEntity.status(HttpStatus.CREATED).body(customerService.saveOrMerge(customerDTO));
+        }
+
+        return ResponseEntity.ok().body(customerService.saveOrMerge(customerDTO));
     }
 }
