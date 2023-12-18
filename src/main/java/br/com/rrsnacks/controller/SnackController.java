@@ -12,6 +12,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/snacks")
+@CrossOrigin(origins = "http://localhost:5500")
 public class SnackController {
     @Autowired()
     SnackService snackService;
