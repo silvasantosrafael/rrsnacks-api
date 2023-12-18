@@ -28,7 +28,7 @@ public class OrderController {
     }
 
     @GetMapping("/order")
-    public ResponseEntity<List<OrderDTO>> getOrder(@RequestParam String login) {
+    public ResponseEntity<List<OrderDTO>> getOrderByCustomerLogin(@RequestParam String login) {
         List<OrderDTO> orderDTOList = orderService.getByCustomerLogin(login);
         return ResponseEntity.ok().body(orderDTOList);
     }
