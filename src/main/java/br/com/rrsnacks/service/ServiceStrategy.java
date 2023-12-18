@@ -5,6 +5,8 @@ import java.util.Optional;
 
 public interface ServiceStrategy<T> {
     List<T> getAll();
+
     Optional<T> getById(Long id);
+
     T saveOrMerge(T t);
 }
