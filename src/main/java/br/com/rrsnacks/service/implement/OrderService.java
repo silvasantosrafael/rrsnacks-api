@@ -30,6 +30,10 @@ public class OrderService implements ServiceStrategy<OrderDTO> {
         return orderRepository.findById(id).map(order -> mapper.map(order, OrderDTO.class));
     }
 
+    public List<OrderDTO> getByCustomerLogin(String login) {
+        return Arrays.stream(mapper.map(orderRepository.findByCustomerEmail(login), OrderDTO[].class)).toList();
+    }
+
     @Override
     public OrderDTO saveOrMerge(OrderDTO orderDTO) {
         Order orderEntity = mapper.map(orderDTO, Order.class);

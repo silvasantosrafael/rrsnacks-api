@@ -27,7 +27,13 @@ public class OrderController {
         return OrderDTO.map(dto -> ResponseEntity.ok().body(dto)).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping("create")
+    @GetMapping("/order")
+    public ResponseEntity<List<OrderDTO>> getOrder(@RequestParam String login) {
+        List<OrderDTO> orderDTOList = orderService.getByCustomerLogin(login);
+        return ResponseEntity.ok().body(orderDTOList);
+    }
+
+    @PostMapping("save")
     public ResponseEntity<OrderDTO> createOrder(@RequestBody OrderDTO OrderDTO) {
         return ResponseEntity.created(URI.create("")).body(orderService.saveOrMerge(OrderDTO));
     }

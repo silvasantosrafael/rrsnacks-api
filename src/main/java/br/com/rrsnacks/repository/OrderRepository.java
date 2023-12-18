@@ -4,4 +4,5 @@ import br.com.rrsnacks.model.Order;
 import org.springframework.data.repository.CrudRepository;
 
 public interface OrderRepository extends CrudRepository<Order, Long> {
+    Iterable<Order> findByCustomerEmail(String email);
 }
