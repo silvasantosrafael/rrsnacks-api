@@ -3,10 +3,10 @@ package br.com.rrsnacks.controller;
 import br.com.rrsnacks.dto.SnackDTO;
 import br.com.rrsnacks.service.implement.SnackService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,8 +27,12 @@ public class SnackController {
         return snackDTO.map(dto -> ResponseEntity.ok().body(dto)).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping("create")
+    @PostMapping("save")
     public ResponseEntity<SnackDTO> createSnack(@RequestBody SnackDTO snackDTO) {
-        return ResponseEntity.created(URI.create("")).body(snackService.saveOrMerge(snackDTO));
+        if (snackDTO.getSnackId() == null) {
+            return ResponseEntity.status(HttpStatus.CREATED).body(snackService.saveOrMerge(snackDTO));
+        }
+
+        return ResponseEntity.ok().body(snackService.saveOrMerge(snackDTO));
     }
 }

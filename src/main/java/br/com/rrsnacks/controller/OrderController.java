@@ -3,10 +3,10 @@ package br.com.rrsnacks.controller;
 import br.com.rrsnacks.dto.OrderDTO;
 import br.com.rrsnacks.service.implement.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,7 +34,11 @@ public class OrderController {
     }
 
     @PostMapping("save")
-    public ResponseEntity<OrderDTO> createOrder(@RequestBody OrderDTO OrderDTO) {
-        return ResponseEntity.created(URI.create("")).body(orderService.saveOrMerge(OrderDTO));
+    public ResponseEntity<OrderDTO> createOrder(@RequestBody OrderDTO orderDTO) {
+        if (orderDTO.getOrderId() == null) {
+            return ResponseEntity.status(HttpStatus.CREATED).body(orderService.saveOrMerge(orderDTO));
+        }
+
+        return ResponseEntity.ok().body(orderService.saveOrMerge(orderDTO));
     }
 }
