@@ -22,9 +22,7 @@ public class ControllerException {
     public List<ErrorHandler> handleMethodArgumentNotValidException(MethodArgumentNotValidException exception) {
         List<FieldError> fieldErrors = exception.getBindingResult().getFieldErrors();
         List<ErrorHandler> errors = new ArrayList<>();
-        fieldErrors.forEach(fieldError -> {
-            errors.add(new ErrorHandler(fieldError.getField(), null, fieldError.getDefaultMessage()));
-        });
+        fieldErrors.forEach(fieldError -> errors.add(new ErrorHandler(fieldError.getField(), null, fieldError.getDefaultMessage())));
 
         return errors;
     }
