@@ -1,5 +1,6 @@
 package br.com.rrsnacks.dto;
 
+import jakarta.validation.constraints.Email;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,6 +12,7 @@ import java.util.List;
 public class CustomerDTO {
     private Long customerId;
     private String name;
+    @Email
     private String email;
     private List<AddressDTO> addresses = new ArrayList<>();
 }

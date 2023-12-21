@@ -2,6 +2,7 @@ package br.com.rrsnacks.controller;
 
 import br.com.rrsnacks.dto.SnackDTO;
 import br.com.rrsnacks.service.implement.SnackService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +30,7 @@ public class SnackController {
     }
 
     @PostMapping("save")
-    public ResponseEntity<SnackDTO> createSnack(@RequestBody SnackDTO snackDTO) {
+    public ResponseEntity<SnackDTO> createSnack(@RequestBody @Valid SnackDTO snackDTO) {
         if (snackDTO.getSnackId() == null) {
             return ResponseEntity.status(HttpStatus.CREATED).body(snackService.saveOrMerge(snackDTO));
         }

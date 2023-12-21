@@ -2,6 +2,7 @@ package br.com.rrsnacks.controller;
 
 import br.com.rrsnacks.dto.CustomerDTO;
 import br.com.rrsnacks.service.implement.CustomerService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +35,7 @@ public class CustomerController {
     }
 
     @PostMapping("/save")
-    public ResponseEntity<CustomerDTO> createCustomer(@RequestBody CustomerDTO customerDTO) {
+    public ResponseEntity<CustomerDTO> createCustomer(@RequestBody @Valid CustomerDTO customerDTO) {
         if (customerDTO.getCustomerId() == null) {
             return ResponseEntity.status(HttpStatus.CREATED).body(customerService.saveOrMerge(customerDTO));
         }
