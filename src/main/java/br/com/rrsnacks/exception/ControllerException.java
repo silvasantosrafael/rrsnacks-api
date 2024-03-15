@@ -2,7 +2,6 @@ package br.com.rrsnacks.exception;
 
 import br.com.rrsnacks.exception.handler.ErrorHandler;
 import org.hibernate.exception.ConstraintViolationException;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
