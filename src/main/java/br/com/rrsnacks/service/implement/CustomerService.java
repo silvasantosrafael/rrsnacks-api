@@ -37,7 +37,7 @@ public class CustomerService implements ServiceStrategy<CustomerDTO> {
     @Override
     public CustomerDTO saveOrMerge(CustomerDTO customerDTO) {
         Customer customerEntity = mapper.map(customerDTO, Customer.class);
-        customerEntity.getAddresses().forEach(address -> address.setCustomer(customerEntity));
+        customerEntity.getAddress().setCustomer(customerEntity);
         Customer customer = customerRepository.save(customerEntity);
 
         return mapper.map(customer, CustomerDTO.class);

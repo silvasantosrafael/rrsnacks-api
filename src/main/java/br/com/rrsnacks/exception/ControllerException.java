@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,5 +32,11 @@ public class ControllerException {
     @ExceptionHandler(ConstraintViolationException.class)
     public ErrorHandler handleDataIntegrityViolationException(ConstraintViolationException exception) {
         return new ErrorHandler(null, exception.getConstraintName(), exception.getErrorMessage());
+    }
+
+    @ResponseStatus(BAD_REQUEST)
+    @ExceptionHandler(FileNotFoundException.class)
+    public ErrorHandler handleFileNotFoundException(FileNotFoundException exception) {
+        return new ErrorHandler(null, null, exception.getMessage());
     }
 }

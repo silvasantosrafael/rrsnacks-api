@@ -22,8 +22,8 @@ public class Customer {
     private Long customerId;
     private String name;
     private String email;
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
-    private List<Address> addresses = new ArrayList<>();
+    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
+    private Address address;
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private List<Order> orders = new ArrayList<>();
 }

@@ -16,4 +16,5 @@ public class OrderDTO {
     private PaymentType paymentType;
     private List<SnackDTO> snacks = new ArrayList<>();
     private Date orderDate;
+    private Double total;
 }

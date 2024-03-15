@@ -14,6 +14,6 @@ public class CustomerDTO {
     private String name;
     @Email
     private String email;
-    private List<AddressDTO> addresses = new ArrayList<>();
+    private AddressDTO address;
 }
 

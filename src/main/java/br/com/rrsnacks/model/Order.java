@@ -34,4 +34,5 @@ public class Order {
     private List<Snack> snacks;
     @Temporal(TemporalType.TIMESTAMP)
     private Date orderDate;
+    private Double total;
 }

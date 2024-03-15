@@ -17,5 +17,7 @@ public class SnackDTO {
     @NotNull
     @Positive
     private BigDecimal price;
+    private String image;
+
 }
 
