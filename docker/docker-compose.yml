@@ -1,9 +1,11 @@
 services:
   postgres:
     image: postgres
+    container_name: postgres16
     ports:
       - "5432:5432"
     expose:
       - "5432"
     environment:
+      - POSTGRES_DB=rrsnacks_db
       - POSTGRES_PASSWORD=+OZbHqGSsyZp
