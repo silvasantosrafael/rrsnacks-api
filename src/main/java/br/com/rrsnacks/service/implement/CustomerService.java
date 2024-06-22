@@ -5,7 +5,6 @@ import br.com.rrsnacks.model.Customer;
 import br.com.rrsnacks.repository.CustomerRepository;
 import br.com.rrsnacks.service.ServiceStrategy;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -14,11 +13,13 @@ import java.util.Optional;
 
 @Service
 public class CustomerService implements ServiceStrategy<CustomerDTO> {
-    @Autowired
     CustomerRepository customerRepository;
-    @Autowired
     ModelMapper mapper;
 
+    public CustomerService(CustomerRepository customerRepository, ModelMapper mapper) {
+        this.customerRepository = customerRepository;
+        this.mapper = mapper;
+    }
 
     @Override
     public List<CustomerDTO> getAll() {
