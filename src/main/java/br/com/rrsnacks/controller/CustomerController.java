@@ -14,7 +14,7 @@ import java.util.Optional;
 @RequestMapping("/customers")
 @CrossOrigin(origins = "*")
 public class CustomerController {
-    CustomerService customerService;
+    private final CustomerService customerService;
 
     public CustomerController(CustomerService customerService) {
         this.customerService = customerService;

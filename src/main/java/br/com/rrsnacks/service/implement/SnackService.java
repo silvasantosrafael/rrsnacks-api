@@ -16,9 +16,9 @@ import java.util.Optional;
 
 @Service
 public class SnackService implements ServiceStrategy<SnackDTO> {
-    SnackRepository snackRepository;
-    FileUploadService fileUploadService;
-    ModelMapper mapper;
+    private final SnackRepository snackRepository;
+    private final FileUploadService fileUploadService;
+    private final ModelMapper mapper;
 
     public SnackService(SnackRepository snackRepository, FileUploadService fileUploadService, ModelMapper mapper) {
         this.snackRepository = snackRepository;

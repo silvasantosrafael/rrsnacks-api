@@ -18,10 +18,10 @@ import java.util.Optional;
 
 @Service
 public class OrderService implements ServiceStrategy<OrderDTO> {
-    OrderRepository orderRepository;
-    CustomerRepository customerRepository;
-    SnackRepository snackRepository;
-    ModelMapper mapper;
+    private final OrderRepository orderRepository;
+    private final CustomerRepository customerRepository;
+    private final SnackRepository snackRepository;
+    private final ModelMapper mapper;
 
     public OrderService(OrderRepository orderRepository, CustomerRepository customerRepository, SnackRepository snackRepository, ModelMapper mapper) {
         this.orderRepository = orderRepository;

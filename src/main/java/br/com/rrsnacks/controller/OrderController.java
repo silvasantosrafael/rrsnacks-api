@@ -13,7 +13,7 @@ import java.util.Optional;
 @RequestMapping("/orders")
 @CrossOrigin(origins = "*")
 public class OrderController {
-    OrderService orderService;
+    private final OrderService orderService;
 
     public OrderController(OrderService orderService) {
         this.orderService = orderService;

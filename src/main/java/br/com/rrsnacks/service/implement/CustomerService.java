@@ -13,8 +13,8 @@ import java.util.Optional;
 
 @Service
 public class CustomerService implements ServiceStrategy<CustomerDTO> {
-    CustomerRepository customerRepository;
-    ModelMapper mapper;
+    private final CustomerRepository customerRepository;
+    private final ModelMapper mapper;
 
     public CustomerService(CustomerRepository customerRepository, ModelMapper mapper) {
         this.customerRepository = customerRepository;
