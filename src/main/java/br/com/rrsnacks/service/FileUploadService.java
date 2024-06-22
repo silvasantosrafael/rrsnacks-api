@@ -14,8 +14,11 @@ import java.util.Objects;
 
 @Service
 public class FileUploadService {
-    @Value("${server.media.upload.path}")
-    private String basePath;
+    private final String basePath;
+
+    public FileUploadService(@Value("${server.media.upload.path}") String basePath) {
+        this.basePath = basePath;
+    }
 
     public String renameFile(MultipartFile imageFile) throws FileNotFoundException {
         if (!isValidFile(imageFile)) {
