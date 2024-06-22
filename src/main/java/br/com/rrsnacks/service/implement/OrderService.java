@@ -10,7 +10,6 @@ import br.com.rrsnacks.repository.OrderRepository;
 import br.com.rrsnacks.repository.SnackRepository;
 import br.com.rrsnacks.service.ServiceStrategy;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -19,15 +18,17 @@ import java.util.Optional;
 
 @Service
 public class OrderService implements ServiceStrategy<OrderDTO> {
-    @Autowired
     OrderRepository orderRepository;
-    @Autowired
     CustomerRepository customerRepository;
-    @Autowired
     SnackRepository snackRepository;
-    @Autowired
     ModelMapper mapper;
 
+    public OrderService(OrderRepository orderRepository, CustomerRepository customerRepository, SnackRepository snackRepository, ModelMapper mapper) {
+        this.orderRepository = orderRepository;
+        this.customerRepository = customerRepository;
+        this.snackRepository = snackRepository;
+        this.mapper = mapper;
+    }
 
     @Override
     public List<OrderDTO> getAll() {
@@ -48,19 +49,18 @@ public class OrderService implements ServiceStrategy<OrderDTO> {
         Order orderEntity = mapper.map(orderDTO, Order.class);
         Order order = orderRepository.save(orderEntity);
         OrderDTO map = mapper.map(order, OrderDTO.class);
-        OrderDTO dataForResponse = getDataForResponse(map);
 
-        return dataForResponse;
+        return getDataForResponse(map);
     }
 
     private OrderDTO getDataForResponse(OrderDTO orderDTO) {
-        Customer customer = customerRepository.findById(orderDTO.getCustomer().getCustomerId()).get();
+        Customer customer = customerRepository.findById(orderDTO.getCustomer().getCustomerId()).stream().findFirst().orElse(null);
         CustomerDTO customerDTO = mapper.map(customer, CustomerDTO.class);
         orderDTO.setCustomer(customerDTO);
 
         List<SnackDTO> listSnackDTO = orderDTO.getSnacks()
                 .stream()
-                .map(snackDTO -> snackRepository.findById(snackDTO.getSnackId()).get())
+                .map(snackDTO -> snackRepository.findById(snackDTO.getSnackId()).stream().findFirst().orElse(null))
                 .map(snack -> mapper.map(snack, SnackDTO.class))
                 .toList();
 
