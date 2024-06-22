@@ -2,7 +2,6 @@ package br.com.rrsnacks.controller;
 
 import br.com.rrsnacks.dto.OrderDTO;
 import br.com.rrsnacks.service.implement.OrderService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,9 +11,13 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/orders")
+@CrossOrigin(origins = "*")
 public class OrderController {
-    @Autowired()
     OrderService orderService;
+
+    public OrderController(OrderService orderService) {
+        this.orderService = orderService;
+    }
 
     @GetMapping()
     public ResponseEntity<List<OrderDTO>> getAllOrders() {
@@ -23,8 +26,8 @@ public class OrderController {
 
     @GetMapping("/{id}")
     public ResponseEntity<OrderDTO> getOrder(@PathVariable Long id) {
-        Optional<OrderDTO> OrderDTO = orderService.getById(id);
-        return OrderDTO.map(dto -> ResponseEntity.ok().body(dto)).orElseGet(() -> ResponseEntity.notFound().build());
+        Optional<OrderDTO> orderDTO = orderService.getById(id);
+        return orderDTO.map(dto -> ResponseEntity.ok().body(dto)).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping("/order")
