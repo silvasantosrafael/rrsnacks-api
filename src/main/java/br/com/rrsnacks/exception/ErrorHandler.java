@@ -1,6 +1,6 @@
 package br.com.rrsnacks.exception;
 
-import br.com.rrsnacks.exception.handler.ErrorHandler;
+import br.com.rrsnacks.exception.dto.ErrorDTO;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -15,27 +15,27 @@ import java.util.List;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 @RestControllerAdvice
-public class ControllerException {
+public class ErrorHandler {
 
     @ResponseStatus(BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public List<ErrorHandler> handleMethodArgumentNotValidException(MethodArgumentNotValidException exception) {
+    public List<ErrorDTO> handleMethodArgumentNotValidException(MethodArgumentNotValidException exception) {
         List<FieldError> fieldErrors = exception.getBindingResult().getFieldErrors();
-        List<ErrorHandler> errors = new ArrayList<>();
-        fieldErrors.forEach(fieldError -> errors.add(new ErrorHandler(fieldError.getField(), null, fieldError.getDefaultMessage())));
+        List<ErrorDTO> errors = new ArrayList<>();
+        fieldErrors.forEach(fieldError -> errors.add(new ErrorDTO(fieldError.getField(), null, fieldError.getDefaultMessage())));
 
         return errors;
     }
 
     @ResponseStatus(BAD_REQUEST)
     @ExceptionHandler(ConstraintViolationException.class)
-    public ErrorHandler handleDataIntegrityViolationException(ConstraintViolationException exception) {
-        return new ErrorHandler(null, exception.getConstraintName(), exception.getErrorMessage());
+    public ErrorDTO handleDataIntegrityViolationException(ConstraintViolationException exception) {
+        return new ErrorDTO(null, exception.getConstraintName(), exception.getErrorMessage());
     }
 
     @ResponseStatus(BAD_REQUEST)
     @ExceptionHandler(FileNotFoundException.class)
-    public ErrorHandler handleFileNotFoundException(FileNotFoundException exception) {
-        return new ErrorHandler(null, null, exception.getMessage());
+    public ErrorDTO handleFileNotFoundException(FileNotFoundException exception) {
+        return new ErrorDTO(null, null, exception.getMessage());
     }
 }
