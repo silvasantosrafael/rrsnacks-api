@@ -3,7 +3,6 @@ package br.com.rrsnacks.controller;
 import br.com.rrsnacks.dto.CustomerDTO;
 import br.com.rrsnacks.service.implement.CustomerService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,9 +12,13 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/customers")
+@CrossOrigin(origins = "*")
 public class CustomerController {
-    @Autowired
     CustomerService customerService;
+
+    public CustomerController(CustomerService customerService) {
+        this.customerService = customerService;
+    }
 
     @GetMapping()
     public ResponseEntity<List<CustomerDTO>> getAllCustomer() {
