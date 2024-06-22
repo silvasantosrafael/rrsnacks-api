@@ -7,9 +7,7 @@ import br.com.rrsnacks.service.FileUploadService;
 import br.com.rrsnacks.service.ServiceStrategy;
 import org.apache.tomcat.util.http.fileupload.FileUploadException;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileNotFoundException;
 import java.util.Arrays;
@@ -18,13 +16,15 @@ import java.util.Optional;
 
 @Service
 public class SnackService implements ServiceStrategy<SnackDTO> {
-    @Autowired
     SnackRepository snackRepository;
-    @Autowired
     FileUploadService fileUploadService;
-    @Autowired
     ModelMapper mapper;
 
+    public SnackService(SnackRepository snackRepository, FileUploadService fileUploadService, ModelMapper mapper) {
+        this.snackRepository = snackRepository;
+        this.fileUploadService = fileUploadService;
+        this.mapper = mapper;
+    }
 
     @Override
     public List<SnackDTO> getAll() {
@@ -44,13 +44,13 @@ public class SnackService implements ServiceStrategy<SnackDTO> {
         return mapper.map(snackCreated, SnackDTO.class);
     }
 
-    public SnackDTO saveSnack(MultipartFile imageFile, SnackDTO snackDTO) throws FileNotFoundException {
+    public SnackDTO saveSnack(SnackDTO snackDTO) throws FileNotFoundException {
         try {
-            if (!fileUploadService.isValidFile(imageFile)) {
+            if (!fileUploadService.isValidFile(snackDTO.getImageFile())) {
                 throw new FileNotFoundException();
             }
-            String renameFile = fileUploadService.renameFile(imageFile);
-            fileUploadService.uploadFile(imageFile, renameFile);
+            String renameFile = fileUploadService.renameFile(snackDTO.getImageFile());
+            fileUploadService.uploadFile(snackDTO.getImageFile(), renameFile);
             snackDTO.setImage(renameFile);
         } catch (FileUploadException | FileNotFoundException e) {
             throw new FileNotFoundException("Image not found or invalid");
