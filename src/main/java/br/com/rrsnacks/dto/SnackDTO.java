@@ -23,4 +23,3 @@ public class SnackDTO {
     private MultipartFile imageFile;
     private String image;
 }
-

@@ -13,4 +13,3 @@ public class AddressDTO {
     private String complement;
     private String city;
 }
-
