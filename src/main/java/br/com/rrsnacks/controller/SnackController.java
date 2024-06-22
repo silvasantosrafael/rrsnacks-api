@@ -1,7 +1,6 @@
 package br.com.rrsnacks.controller;
 
 import br.com.rrsnacks.dto.SnackDTO;
-import br.com.rrsnacks.service.FileUploadService;
 import br.com.rrsnacks.service.implement.SnackService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,12 +14,10 @@ import java.util.Optional;
 @RequestMapping("/snacks")
 @CrossOrigin(origins = "*")
 public class SnackController {
-    SnackService snackService;
-    FileUploadService fileUploadService;
+    private final SnackService snackService;
 
-    public SnackController(SnackService snackService, FileUploadService fileUploadService) {
+    public SnackController(SnackService snackService) {
         this.snackService = snackService;
-        this.fileUploadService = fileUploadService;
     }
 
     @GetMapping()
