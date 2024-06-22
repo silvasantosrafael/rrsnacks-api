@@ -29,14 +29,14 @@ CREATE TABLE snacks (
 CREATE TABLE orders (
     order_id SERIAL PRIMARY KEY,
     customer_id INT REFERENCES customers(customer_id) NOT NULL,
-    payment_type VARCHAR(50), -- Adapte conforme necessário
+    payment_type VARCHAR(50),
     order_date TIMESTAMP,
     FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
 );
 
 -- Tabela de junção para a relação Many-to-Many entre Order e Snack
 CREATE TABLE order_snack (
-	order_snack_id SERIAL PRIMARY key,
+    order_snack_id SERIAL PRIMARY key,
     order_id INT REFERENCES orders(order_id) NOT NULL,
     snack_id INT REFERENCES snacks(snack_id) NOT NULL,
     FOREIGN KEY (order_id) REFERENCES orders(order_id),
